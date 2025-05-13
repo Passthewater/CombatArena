@@ -1,0 +1,13 @@
+{
+  "player": {
+    "name": "Matt the Mighty",
+    "health": 100,
+    "attack_power": 10
+  },
+  "enemy": {
+    "name": "Goblin Scum",
+    "health": 80,
+    "attack_power": 8,
+    "xp_reward": 20
+  }
+}
