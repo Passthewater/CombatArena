@@ -1,0 +1,25 @@
+from engine.fighter import Fighter
+from engine.utils import block, dodge, dodge_chance_success
+
+class Knight(Fighter):
+    def __init__(self, name, health, attack_power, level=1, xp=0, xp_reward=0):
+        super().__init__(name, health, attack_power, level, xp, xp_reward)
+        self.class_name = "Knight"
+        self.block_chance = 0.3
+        self.dodge_chance = 0.05
+        self.magic_vulnerability = 1.5
+        self.armour = "Heavy"
+    
+    def take_damage(self, damage, attacker_type=None):
+        #if attacker_type == "Mage"
+            #damage = int(damage * self.magic_vulnerability)
+        
+        if self.block_chance > 0 and dodge_chance_success(self.block_chance):
+            print(f"{self.name} blocks the attack!")
+            damage = block(damage)
+        elif self.dodge_chance > 0 and dodge_chance_success(self.dodge_chance):
+            print(f"{self.name} dodges the attack!")
+            damage = dodge(damage)
+        
+        self.health -= damage
+        print(f"{self.name} takes {damage} damage!")

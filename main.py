@@ -1,15 +1,15 @@
 from engine import Fighter, Battle
 from engine.config import load_config
 from engine.save import load_player, save_player
+from engine.config import create_fighter
 
 # Main function to run the combat arena
 
 if __name__ == "__main__":
-    player_data = load_player()
-    player = Fighter(**player_data)
+    data = load_config("fighters.json")
 
-    enemy_data = load_config("fighters.json")["enemy"]
-    enemy = Fighter(**enemy_data)
+    player = create_fighter(data["player"])
+    enemy = Fighter(**data["enemy"])  # or use class here too later
 
     arena = Battle(player, enemy)
     arena.fight()
