@@ -1,10 +1,29 @@
 {
   "player": {
-    "name": "Matt the Bulwark",
-    "health": 120,
-    "attack_power": 8,
-    "spell_power": 12,
-    "class": "Mage",
+    "name": "Hero",
+    "health": 100,
+    "attack_power": 10,
+    "spell_power": 0,
+    "class": "Knight",
+    "items": [
+      {
+        "name": "Health Potion",
+        "effect_value": 30,
+        "is_consumable": true,
+        "is_usable": true,
+        "is_equipped": false
+      },
+      {
+        "name": "Iron Sword",
+        "description": "A basic sword.",
+        "effect_type": "damage_boost",
+        "effect_value": 5,
+        "is_consumable": false,
+        "is_usable": false,
+        "is_equipped": true,
+        "equip_slot": "main_hand"
+      }
+    ],
     "xp": 0,
     "xp_reward": 0,
     "level": 1
@@ -13,6 +32,25 @@
     "name": "Goblin Scum",
     "health": 80,
     "class": "Knight",
+    "items": [
+      {
+        "name": "Health Potion",
+        "effect_value": 30,
+        "is_consumable": true,
+        "is_usable": true,
+        "is_equipped": false
+      },
+      {
+        "name": "Iron Sword",
+        "description": "A basic sword.",
+        "effect_type": "damage_boost",
+        "effect_value": 5,
+        "is_consumable": false,
+        "is_usable": false,
+        "is_equipped": true,
+        "equip_slot": "main_hand"
+      }
+    ],
     "attack_power": 8,
     "spell_power": 0,
     "xp_reward": 20

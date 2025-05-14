@@ -1,87 +1,44 @@
-Here is a plan to refactor the `create_fighter` function in `engine/config.py`:
+1. __Design the `Item` Structure:__
 
-__Plan: Refactoring Fighter Creation__
+   - What information does an item need? At a minimum, probably a `name`. Maybe also an `effect` or `value` (e.g., a potion's healing amount, a weapon's damage bonus).
+   - For a simple start, we might not even need a full `Item` class yet. We could represent items as dictionaries or simple strings initially and expand later. Let's plan to start simple, perhaps just using strings for item names in the inventory.
 
-__Goal:__ Replace the `if/elif` chain in `create_fighter` with a more flexible approach using a dictionary lookup.
+2. __Create the `Inventory` Class:__
 
-__Steps:__
+   - This class will be responsible for managing a collection of items.
 
-1. __Understand the Problem:__ The current `create_fighter` function relies on a series of `if/elif` statements to check the `class` string from the configuration data and then manually instantiate the correct class (`Knight`, `Mage`, or `Fighter`). This works for a few classes, but adding a new class requires adding a new `elif` block, which makes the function grow and become harder to maintain.
+   - It will need an attribute to hold the items. A __list__ is a good data structure for this, as it can store multiple items in order and allows for easy adding and removing.
 
-2. __Introduce a Class Mapping Dictionary:__ We will create a dictionary within `engine/config.py` that maps the string names of the classes (like `"Knight"`, `"Mage"`, `"Fighter"`) to the actual Python class objects (`Knight`, `Mage`, `Fighter`). This dictionary will serve as a lookup table.
+   - It will need methods:
 
-   ```python
-   # Inside engine/config.py, after imports
-   CLASS_MAPPING = {
-       "Fighter": Fighter,
-       "Knight": Knight,
-       "Mage": Mage,
-       # Add new classes here as you create them
-   }
-   ```
+     - `__init__`: To initialize the inventory, likely starting empty.
+     - `add_item(item)`: To add an item to the inventory.
+     - `remove_item(item)`: To remove an item from the inventory.
+     - `list_items()`: To display the items currently in the inventory.
+     - Maybe `use_item(item_name, target)`: To handle the logic of using an item (this is more complex and could be a later step).
 
-3. __Modify `create_fighter` to Use the Mapping:__
+3. __Integrate `Inventory` into `Fighter` (Composition):__
 
-   - The function will take the `cls` string (e.g., `"Knight"`) and use it as a key to look up the corresponding class object in the `CLASS_MAPPING` dictionary.
-   - Once the class object is retrieved, we will instantiate it.
+   - Add an attribute to the `Fighter` class (e.g., `self.inventory`) in its `__init__` method.
+   - Initialize this attribute with a new instance of the `Inventory` class: `self.inventory = Inventory()`. Now, every `Fighter` object *has an* `Inventory` object.
 
-4. __Handle Different `__init__` Signatures:__
+4. __Add Initial Items (Optional but helpful):__
 
-   - The `Fighter`, `Knight`, and `Mage` classes have slightly different parameters in their `__init__` methods. The current `if/elif` explicitly passes the required parameters for each class.
-   - We need to maintain this behavior. After looking up the class object in the `CLASS_MAPPING`, we will check which class it is and pass the appropriate arguments from the `fighter_data` dictionary. This still involves a check, but it's based on the class object itself, which is generally preferred over string comparisons for type checking.
+   - Modify your `fighters.json` or the `create_fighter` function to allow specifying initial items for a fighter.
+   - When creating a fighter, add these initial items to their newly created `self.inventory`.
 
-__Refactored `create_fighter` (Conceptual):__
+5. __Basic Inventory Interaction:__
 
-```python
-# Inside engine/config.py
+   - Add a method to the `Fighter` class, perhaps `show_inventory()`, that calls the `list_items()` method of its `self.inventory`.
+   - Modify the battle loop or add a new interaction point in `main.py` to allow the player to see their inventory.
 
-# ... imports and CLASS_MAPPING dictionary ...
+__TODO for Future Learning (from previous plan + new):__
 
-def create_fighter(cls_name, data):
-    # Get the class object from the mapping
-    fighter_class = CLASS_MAPPING.get(cls_name)
-
-    if fighter_class is None:
-        print(f"Error: Unknown fighter class '{cls_name}'")
-        return None # Or raise an error
-
-    # Create a copy of data and remove the class key
-    fighter_data = data.copy()
-    fighter_data.pop('class', None)
-
-    # Instantiate the correct class with appropriate arguments
-    if fighter_class == Knight:
-         return Knight(
-            name=fighter_data['name'],
-            health=fighter_data['health'],
-            attack_power=fighter_data['attack_power'],
-            level=fighter_data.get('level', 1),
-            xp=fighter_data.get('xp', 0),
-            xp_reward=fighter_data.get('xp_reward', 0)
-        )
-    elif fighter_class == Mage:
-        return Mage(
-            name=fighter_data['name'],
-            health=fighter_data['health'],
-            spell_power=fighter_data['spell_power'],
-            attack_power=fighter_data['attack_power'],
-            level=fighter_data.get('level', 1),
-            xp=fighter_data.get('xp', 0),
-            xp_reward=fighter_data.get('xp_reward', 0)
-        )
-    else: # Assume it's the base Fighter or another class that accepts **kwargs
-        return fighter_class(**fighter_data)
-```
-
-*(Note: The base `Fighter` class's `__init__` currently expects `spell_power` as a positional argument. Using `**fighter_data` might require adjusting the `Fighter.__init__` signature to accept `**kwargs` or ensuring `spell_power` is always present in the data, even if 0, for non-Mages. We can address this when implementing.)*
-
-__TODO for Future Learning:__
-
-- __Implement an Inventory System:__ Design and add an `Inventory` class using a list or dictionary. Integrate it into the `Fighter` class using composition.
+- __Refine Item Structure:__ Create a dedicated `Item` class with attributes like `name`, `description`, and `effect`.
+- __Implement Item Usage:__ Add the `use_item` method to the `Inventory` class and integrate its effects into combat or other game logic.
 - __Add Status Effects:__ Create a system for applying and managing status effects (Poison, Stun, etc.) using a data structure and updating effects each round.
 - __Expand the Battle System:__ Modify the `Battle` class to handle multiple fighters per side, using lists to manage teams and updating the combat loop.
-
-This plan focuses on the refactoring of `create_fighter` first, as it's a good, contained task that uses dictionaries effectively.
+- __Save/Load Inventory:__ Update the save/load system (`engine/save.py`) to include the fighter's inventory.
 
 
 - __Refactoring Fighter Creation (`engine/config.py`):__

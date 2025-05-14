@@ -16,6 +16,7 @@ if __name__ == "__main__":
         print("🔄 No save file found — loading default player.")
 
     player = create_fighter(data["player"]["class"], data["player"])
+    player.show_inventory()
     enemy = create_fighter(data["enemy"]["class"], data["enemy"])
 
     arena = Battle(player, enemy)

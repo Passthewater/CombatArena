@@ -1,5 +1,6 @@
 import random
 from .utils import critical_hit
+from .items import Item, Inventory
 
 class Fighter:
     def __init__(self, name, health, attack_power, spell_power, level=1, xp=0,xp_reward=0, vulnerability = 3):
@@ -13,6 +14,7 @@ class Fighter:
         self.xp = xp
         self.xp_reward = xp_reward
         self.vulnerability = vulnerability
+        self.inventory = Inventory()
 
 
     def gain_xp(self, amount):
@@ -47,3 +49,7 @@ class Fighter:
 
     def vulnerability (self, damage):
         return int(damage * self.vulnerability)
+    
+    def show_inventory(self):
+        print(f"{self.name}'s Inventory:")
+        self.inventory.list_items()
