@@ -11,8 +11,8 @@ class Knight(Fighter):
         self.armour = "Heavy"
     
     def take_damage(self, damage, attacker_type=None):
-        #if attacker_type == "Mage"
-            #damage = int(damage * self.magic_vulnerability)
+        if attacker_type == "Mage":
+            damage = int(damage * Fighter.vulnerability)
         
         if self.block_chance > 0 and dodge_chance_success(self.block_chance):
             print(f"{self.name} blocks the attack!")

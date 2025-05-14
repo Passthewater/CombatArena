@@ -8,8 +8,8 @@ from engine.config import create_fighter
 if __name__ == "__main__":
     data = load_config("fighters.json")
 
-    player = create_fighter(data["player"])
-    enemy = Fighter(**data["enemy"])  # or use class here too later
+    player = create_fighter(data["player"]["class"], data["player"])
+    enemy = create_fighter(data["enemy"]["class"], data["enemy"])
 
     arena = Battle(player, enemy)
     arena.fight()

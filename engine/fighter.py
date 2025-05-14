@@ -2,15 +2,17 @@ import random
 from .utils import critical_hit
 
 class Fighter:
-    def __init__(self, name, health, attack_power, level=1, xp=0,xp_reward=0):
+    def __init__(self, name, health, attack_power, spell_power, level=1, xp=0,xp_reward=0, vulnerability = 3):
         self.name = name
         self.health = self.max_health = health
         self.attack_power = attack_power
-        self.min_damage = attack_power // 2
-        self.max_damage = attack_power * 2
+        self.spell_power = spell_power
+        self.min_damage = attack_power // 2 or spell_power // 2
+        self.max_damage = attack_power  * 2 or spell_power * 2
         self.level = level
         self.xp = xp
         self.xp_reward = xp_reward
+        self.vulnerability = vulnerability
 
     def gain_xp(self, amount):
         self.xp += amount
@@ -41,3 +43,6 @@ class Fighter:
         if self.health < 0:
             self.health = 0
         print(f"{self.name} takes {damage} damage!")
+
+    def vulnerability (self, damage):
+        return int(damage * self.vulnerability)

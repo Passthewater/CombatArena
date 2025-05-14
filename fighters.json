@@ -1,17 +1,20 @@
 {
-"player": {
-  "name": "Matt the Bulwark",
-  "health": 120,
-  "attack_power": 8,
-  "class": "Knight",
-  "xp": 0,
-  "xp_reward": 0,
-  "level": 1
-},
+  "player": {
+    "name": "Matt the Bulwark",
+    "health": 120,
+    "attack_power": 8,
+    "spell_power": 12,
+    "class": "Mage",
+    "xp": 0,
+    "xp_reward": 0,
+    "level": 1
+  },
   "enemy": {
     "name": "Goblin Scum",
     "health": 80,
+    "class": "Knight",
     "attack_power": 8,
+    "spell_power": 0,
     "xp_reward": 20
   }
 }

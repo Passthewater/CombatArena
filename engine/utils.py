@@ -30,3 +30,9 @@ def special_attack():
 
 def dodge_chance_success(chance):
     return random.random() < chance
+
+def magic_vulnerability(damage, vulnerability):
+    return int(damage * vulnerability)
+
+def range_vulnerability(damage, vulnerability):
+    return int(damage * vulnerability)
