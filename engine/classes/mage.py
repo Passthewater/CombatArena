@@ -11,11 +11,9 @@ class Mage(Fighter):
         self.spell_type = "Fireball"
         self.armour = "Light"
 
-    def take_damage(self, damage, attacker_type=None):
+    def take_damage(self, damage, attacker_class_name=None):
         # Apply the actual damage
-        self.health -= damage
-        print(f"{self.name} takes {damage} damage! Health: {self.health}")
-        
+        super().take_damage(damage)
         # Regenerate mana after taking damage
         self.regenerate_mana()
     
@@ -25,12 +23,12 @@ class Mage(Fighter):
             damage = int(self.spell_power * 1.5)  # Mages do 50% more spell damage
             self.mana -= self.mana_cost
             print(f"{self.name} casts {self.spell_type} for {damage} damage!")
-            opponent.take_damage(damage)
+            opponent.take_damage(damage, attacker_class_name=self.__class__.__name__)
         else:
             # Fallback to basic attack if out of mana
             damage = self.attack_power
             print(f"{self.name} uses staff attack for {damage} damage!")
-            opponent.take_damage(damage)
+            opponent.take_damage(damage, attacker_class_name=self.__class__.__name__)
 
     def regenerate_mana(self):
         if self.mana < self.max_mana:

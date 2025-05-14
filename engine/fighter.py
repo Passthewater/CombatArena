@@ -14,6 +14,7 @@ class Fighter:
         self.xp_reward = xp_reward
         self.vulnerability = vulnerability
 
+
     def gain_xp(self, amount):
         self.xp += amount
         print(f"{self.name} gains {amount} XP! Total XP: {self.xp}")
@@ -34,7 +35,7 @@ class Fighter:
            
     def attack(self, opponent):
         damage = self.roll_attack()
-        opponent.take_damage(damage)
+        opponent.take_damage(damage, attacker_class_name=self.__class__.__name__)
         print(f"{self.name} attacks {opponent.name} for {damage} damage!")
         print(f"{opponent.name} has {opponent.health} health left.")
 

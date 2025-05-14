@@ -12,9 +12,9 @@ class Knight(Fighter):
         self.magic_vulnerability = 1.5
         self.armour = "Heavy"
     
-    def take_damage(self, damage, attacker_type=None):
-        if attacker_type == "Mage":
-            damage = int(damage * Fighter.vulnerability)
+    def take_damage(self, damage, attacker_class_name=None):
+        if attacker_class_name == "Mage":
+            damage = super().vulnerability(damage)
         
         if self.block_chance > 0 and dodge_chance_success(self.block_chance):
             print(f"{self.name} blocks the attack!")
@@ -22,6 +22,4 @@ class Knight(Fighter):
         elif self.dodge_chance > 0 and dodge_chance_success(self.dodge_chance):
             print(f"{self.name} dodges the attack!")
             damage = dodge(damage)
-        
-        self.health -= damage
-        print(f"{self.name} takes {damage} damage!")
+        super().take_damage(damage)
