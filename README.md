@@ -4,74 +4,86 @@
   <img src="resources/the_mighty_logo.png" alt="The Mighty Logo" width="400"/>
 </p>
 
-Welcome to **Combat Arena**, a modular, text-based Python battle simulator where *critical hits*, *level-ups*, and *goblin guts* are just part of the journey.
+![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-⚔️ **Fight. Level. Save. Repeat.**
+A modular Python battle simulator with critical hits, level progression, and persistent saves.
 
----
+## 🚀 Features
 
-## 💾 Features
+- 🎲 Dice-based combat system with RNG critical hits
+- ⚔️ Modular architecture (Fighter, BattleModule, Utils, Save, Config)
+- 📈 Dynamic XP system with auto-scaling levels
+- 💾 JSON persistence for game state
+- 🔧 Clean imports and type hints
 
-- 🎲 Dice-based combat system with critical hits
-- 💥 Modular architecture (Fighter, Battle, Utils, Save, Config)
-- 🧠 Dynamic XP system with auto-scaling levels and stats
-- 💾 Save/load functionality with JSON persistence
-- 🧪 Expandable with loot, enemy classes, and world maps
-- 🛠️ Fully structured with clean file imports and utility modules
+## 📦 Prerequisites
 
----
+- Python 3.9+
+- No external dependencies
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/yourusername/combat-arena.git
+cd combat-arena
+```
+
+## 🏁 Getting Started
+
+```bash
+python main.py
+```
+
+Modify `fighters.json` to customize enemies:
+```json
+{
+  "enemies": [
+    {
+      "name": "Goblin",
+      "health": 15,
+      "attack": 4
+    }
+  ]
+}
+```
 
 ## 📂 Project Structure
-combat_arena/
-│
+
+```
+combat-arena/
 ├── engine/
-│ ├── init.py
-│ ├── fighter.py
-│ ├── battle.py
-│ ├── config.py
-│ ├── save.py
-│ └── utils.py
-│
-├── fighters.json
-├── player_save.json
-└── main.py
+│   ├── __init__.py
+│   ├── battle_module.py   # Combat logic
+│   ├── config.py         # Game constants
+│   ├── fighter.py        # Character classes
+│   ├── save.py           # Save/load system
+│   └── utils.py          # Helper functions
+├── resources/
+│   └── the_mighty_logo.png
+├── fighters.json         # Enemy configurations
+├── player_save.json      # Player progress
+└── main.py               # Entry point
+```
 
+## 🔮 Future Plans
 
----
+- [x] Basic combat system
+- [ ] Loot system (50%)
+- [ ] Multi-enemy battles
+- [ ] Shop interface
+- [ ] Boss AI patterns
 
-## 🚀 Getting Started
+## 🤝 Contributing
 
-1. Clone the repo  
-   ```bash
-   git clone https://github.com/yourusername/combat-arena.git
-   cd combat-arena
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
 
-2. Run the game
-    python main.py
+## 📜 License
 
-3. Modify fighters.json to add new enemies, or upgrade the Mighty 🔥
+MIT License
 
-📖 How It Works
-The player and enemies are loaded from JSON files
+Copyright (c) 2025 Matt the Mighty
 
-Combat runs turn-based in the terminal
-
-Critical hits are RNG-based and double the damage
-
-XP is rewarded per kill, triggering level-ups when thresholds are hit
-
-Player state is saved between sessions
-
-🧙‍♂️ Future Plans
-☑️ Multi-enemy gauntlet battles
-
-⬜️ Loot drops and equipment
-
-⬜️ Shop system
-
-⬜️ Boss fights with custom AI
-
-⬜️ CLI interface with commands
-
-🧼 License
-MIT. Do what you want. Just give Matt the Mighty his due credit.
+Permission is hereby granted...
