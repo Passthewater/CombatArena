@@ -4,7 +4,7 @@
     "health": 120,
     "attack_power": 8,
     "spell_power": 12,
-    "class": "Mage",
+    "class": "Knight",
     "xp": 0,
     "xp_reward": 0,
     "level": 1

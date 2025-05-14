@@ -7,6 +7,13 @@ from engine.config import create_fighter
 
 if __name__ == "__main__":
     data = load_config("fighters.json")
+    player_data = load_player()
+
+    if player_data:
+        data["player"].update(player_data)
+        print("🔄 Player data loaded from save file.")
+    else:
+        print("🔄 No save file found — loading default player.")
 
     player = create_fighter(data["player"]["class"], data["player"])
     enemy = create_fighter(data["enemy"]["class"], data["enemy"])

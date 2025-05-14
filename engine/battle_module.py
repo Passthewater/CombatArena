@@ -18,5 +18,5 @@ class Battle:
             if not self.winner:
                 self.winner = self.fighter2
             if self.winner == self.fighter1 and hasattr(self.fighter2, "xp_reward"):
+                print(f"DEBUG: Before gain_xp, fighter2.xp_reward = {self.fighter2.xp_reward}")
                 self.fighter1.gain_xp(self.fighter2.xp_reward)
-            print(f"\n🏆 {self.winner.name} is victorious after {self.rounds} rounds!")
