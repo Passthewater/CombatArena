@@ -1,6 +1,7 @@
 import random
 from .utils import critical_hit
 from .items import Item, Inventory
+from .status_effects import StatusEffect
 
 class Fighter:
     def __init__(self, name, health, attack_power, spell_power, level=1, xp=0, xp_reward=0, vulnerability_multiplier=3):
@@ -73,28 +74,40 @@ class Fighter:
             self.status_effects[effect.name] = effect
         print(f"{self.name} is affected by {effect.name} for {effect.duration} turns.")
 
-def apply_status_effects(self):
-    effects_to_remove = [] 
+    def apply_status_effects(self):
+        effects_to_remove = [] 
 
     
-    for effect in self.status_effects.values():
-        if effect.effect_type == "heal":
-            self.heal(effect.value)
-        elif effect.effect_type == "poison":
-            self.take_damage(effect.value)
-        elif effect.effect_type == "stun":
-            print(f"{self.name} is stunned and cannot attack this turn!")
+        for effect in self.status_effects.values():
+            if effect.effect_type == "heal":
+                self.heal(effect.value)
+            elif effect.effect_type == "poison":
+                self.take_damage(effect.value)
+            elif effect.effect_type == "stun":
+                print(f"{self.name} is stunned and cannot attack this turn!")
         # Add other effect types here later
 
-        effect.duration -= 1
+            effect.duration -= 1
 
-        if effect.duration <= 0:
-            effects_to_remove.append(effect.name) 
+            if effect.duration <= 0:
+                effects_to_remove.append(effect.name) 
 
     
-    for effect_name in effects_to_remove:
+        for effect_name in effects_to_remove:
        
-        if effect_name in self.status_effects:
-            del self.status_effects[effect_name]
-            print(f"{self.name}'s {effect_name} effect has worn off.")
+            if effect_name in self.status_effects:
+                del self.status_effects[effect_name]
+                print(f"{self.name}'s {effect_name} effect has worn off.")
 
+    def use_item(self, item):
+        print(f"Attempting to use {item.name}...")
+        if item.is_useable and item.duration is not None:
+            new_effect = StatusEffect(item.name,item.effect_type, item.duration, item.effect_value)
+            print(f"{self.name} uses {item.name}!")
+            self.add_status_effect(new_effect)
+            if item.is_consumable:
+                self.inventory.remove_item(item)
+                print(f"{item.name} has been consumed.")
+        
+        else:
+            print(f"{item.name} cannot be used.")

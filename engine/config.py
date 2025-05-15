@@ -15,7 +15,7 @@ def load_config(path):
     with open(path, "r") as f:
         return json.load(f)
 
-def create_fighter(cls_name, data):
+def create_fighter(cls_name, data,all_items_data):
     fighter_class = CLASS_MAPPING.get(cls_name, None)
     if fighter_class is None:
         raise ValueError(f"Unknown class name: {cls_name}")
@@ -45,10 +45,12 @@ def create_fighter(cls_name, data):
     else:
         new_fighter = fighter_class(**fighter_data)
         
-    item_data = data.get("items", [])
-    for item in item_data:
-       item_attr = Item(**item)
-       new_fighter.inventory.add_item(item_attr)
+    fighter_item_names = data.get("items", [])
+    for item_name in fighter_item_names:
+        for item_data in all_items_data:
+            if item_data["name"] == item_name:
+                item_attr = Item(**item_data)
+                new_fighter.inventory.add_item(item_attr)
 
     return new_fighter
 

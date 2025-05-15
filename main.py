@@ -3,10 +3,12 @@ from engine.config import load_config
 from engine.save import load_player, save_player
 from engine.config import create_fighter
 
+
 # Main function to run the combat arena
 
 if __name__ == "__main__":
     data = load_config("fighters.json")
+    items = load_config("items.json")
     player_data = load_player()
 
     if player_data:
@@ -15,10 +17,10 @@ if __name__ == "__main__":
     else:
         print("🔄 No save file found — loading default player.")
 
-    player = create_fighter(data["player"]["class"], data["player"])
+    player = create_fighter(data["player"]["class"], data["player"], items)
     player.show_inventory()
-    enemy = create_fighter(data["enemy"]["class"], data["enemy"])
-
+    enemy = create_fighter(data["enemy"]["class"], data["enemy"], items)
+    enemy.show_inventory()
     arena = Battle([player], [enemy])
     arena.fight()
 

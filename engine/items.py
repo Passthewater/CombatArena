@@ -1,5 +1,5 @@
 class Item:
-    def __init__(self, name, effect_type=None, effect_value=None, description="", is_equipped=False, is_consumable=False, is_usable=False, equip_slot=None):
+    def __init__(self, name, effect_type=None, effect_value=None, description="", is_equipped=False, is_consumable=False, is_usable=False, equip_slot=None, duration=None):
         self.name = name
         self.description = description
         self.effect_type = effect_type
@@ -8,6 +8,7 @@ class Item:
         self.is_consumable = is_consumable
         self.is_usable = is_usable
         self.equip_slot = equip_slot
+        self.duration = duration
 class Inventory:
     def __init__(self):
         self.items = []

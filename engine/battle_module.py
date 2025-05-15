@@ -1,4 +1,5 @@
 from engine.fighter import Fighter
+from engine.status_effects import StatusEffect
 class Battle:
         def __init__(self, team1, team2):
             self.team1 = team1

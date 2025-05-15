@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Healing Salve",
+    "description": "A soothing salve that heals wounds over several turns.",
+    "effect_type": "heal",
+    "effect_value": 10,
+    "duration": 2,
+    "is_consumable": true,
+    "is_usable": true,
+    "is_equipped": false,
+    "equip_slot": null
+  },
+  {
+    "name": "Iron Net",
+    "description": "A heavy net that can entangle and stun an opponent.",
+    "effect_type": "stun",
+    "effect_value": 1,
+    "duration": 1,
+    "is_consumable": true,
+    "is_usable": true,
+    "is_equipped": false,
+    "equip_slot": null
+  },
+  {
+    "name": "Venom Dagger",
+    "description": "A dagger coated with poison, inflicting damage over time.",
+    "effect_type": "poison",
+    "effect_value": 4,
+    "duration": 3,
+    "is_consumable": false,
+    "is_usable": false,
+    "is_equipped": true,
+    "equip_slot": "main_hand"
+  }
+]

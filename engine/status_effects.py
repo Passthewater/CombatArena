@@ -1,4 +1,4 @@
-from fighter import Fighter
+
 class StatusEffect:
     def __init__(self, name, duration, value, effect_type):
         self.name =  name
@@ -9,6 +9,7 @@ class StatusEffect:
 
     def effect(self, target_fighter):
         if self.effect_type == "heal":
+            print(f"{target_fighter.name} is healed for {self.value} health!")
             target_fighter.heal(self.value)
         elif self.effect_type == "poison":
             target_fighter.take_damage(self.value)
