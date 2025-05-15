@@ -15,6 +15,7 @@ class Fighter:
         self.xp_reward = xp_reward
         self.vulnerability = vulnerability
         self.inventory = Inventory()
+        self.status_effects = {}
 
 
     def gain_xp(self, amount):

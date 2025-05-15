@@ -19,7 +19,7 @@ if __name__ == "__main__":
     player.show_inventory()
     enemy = create_fighter(data["enemy"]["class"], data["enemy"])
 
-    arena = Battle(player, enemy)
+    arena = Battle([player], [enemy])
     arena.fight()
 
     save_player(player)
