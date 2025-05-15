@@ -13,6 +13,9 @@ class Battle:
                 print(f"\n--- Round {self.rounds} ---")
                 
                 for fighter in self.team1:
+                    fighter.apply_status_effects()
+                    if fighter.has_status_effect("stun"):
+                        continue
                     if fighter.health > 0:
                         target = None
                         for opponent in self.team2:
@@ -27,8 +30,11 @@ class Battle:
                             self.winner = self.team1
                             self.distribute_xp()
                             break
-
+                    
                 for fighter in self.team2:
+                    fighter.apply_status_effects()
+                    if fighter.has_status_effect("stun"):
+                        continue
                     if fighter.health > 0:
                         target = None
                         for opponent in self.team1:
