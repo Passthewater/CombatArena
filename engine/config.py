@@ -21,10 +21,9 @@ def create_fighter(cls_name, data):
         raise ValueError(f"Unknown class name: {cls_name}")
     
     fighter_data = data.copy()
-    fighter_data.pop("class", None)  # Remove the class key if it exists
+    fighter_data.pop("class", None) 
 
     if fighter_class == Knight:
-        # Explicitly pass only the parameters Knight expects
         new_fighter = Knight(
             name=fighter_data['name'],
             health=fighter_data['health'],

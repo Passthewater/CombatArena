@@ -3,7 +3,7 @@ from .utils import critical_hit
 from .items import Item, Inventory
 
 class Fighter:
-    def __init__(self, name, health, attack_power, spell_power, level=1, xp=0,xp_reward=0, vulnerability = 3):
+    def __init__(self, name, health, attack_power, spell_power, level=1, xp=0, xp_reward=0, vulnerability_multiplier=3):
         self.name = name
         self.health = self.max_health = health
         self.attack_power = attack_power
@@ -13,7 +13,7 @@ class Fighter:
         self.level = level
         self.xp = xp
         self.xp_reward = xp_reward
-        self.vulnerability = vulnerability
+        self.vulnerability_multiplier = vulnerability_multiplier
         self.inventory = Inventory()
         self.status_effects = {}
 
@@ -28,7 +28,7 @@ class Fighter:
         self.level += 1
         self.attack_power += 2
         self.max_health += 10
-        self.health - self.max_health
+        self.health = self.max_health
         print(f"{self.name} leveled up! Now at level {self.level} with {self.max_health} health and {self.attack_power} attack power.")
     
     def roll_attack(self):
@@ -48,9 +48,53 @@ class Fighter:
             self.health = 0
         print(f"{self.name} takes {damage} damage!")
 
-    def vulnerability (self, damage):
-        return int(damage * self.vulnerability)
+    def vulnerability(self, damage):
+        return int(damage * self.vulnerability_multiplier)
     
     def show_inventory(self):
         print(f"{self.name}'s Inventory:")
         self.inventory.list_items()
+
+    def has_status_effect(self, effect_name):
+        for effect in self.status_effects:
+            if effect.name == effect_name:
+                return True
+        return False
+    
+    def heal(self, healing_amount):
+        self.health += healing_amount
+        self.health = min(self.max_health, self.health)
+        print(f"{self.name} heals for {healing_amount} health!")
+    
+    def add_status_effect(self, effect):
+        if effect.name in self.status_effects:
+            self.status_effects[effect.name].duration += effect.duration
+        else:
+            self.status_effects[effect.name] = effect
+        print(f"{self.name} is affected by {effect.name} for {effect.duration} turns.")
+
+def apply_status_effects(self):
+    effects_to_remove = [] 
+
+    
+    for effect in self.status_effects.values():
+        if effect.effect_type == "heal":
+            self.heal(effect.value)
+        elif effect.effect_type == "poison":
+            self.take_damage(effect.value)
+        elif effect.effect_type == "stun":
+            print(f"{self.name} is stunned and cannot attack this turn!")
+        # Add other effect types here later
+
+        effect.duration -= 1
+
+        if effect.duration <= 0:
+            effects_to_remove.append(effect.name) 
+
+    
+    for effect_name in effects_to_remove:
+       
+        if effect_name in self.status_effects:
+            del self.status_effects[effect_name]
+            print(f"{self.name}'s {effect_name} effect has worn off.")
+
