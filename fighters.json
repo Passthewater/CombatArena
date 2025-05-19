@@ -2,7 +2,7 @@
   "player": {
     "name": "Hero",
     "health": 100,
-    "attack_power": 10,
+    "attack_power": 8,
     "spell_power": 0,
     "class": "Knight",
     "items": ["Healing Salve", "Iron Net"],
@@ -12,7 +12,7 @@
   },
   "enemy": {
     "name": "Goblin Scum",
-    "health": 80,
+    "health": 100,
     "class": "Knight",
     "items": ["Healing Salve", "Iron Net"],
     "attack_power": 8,

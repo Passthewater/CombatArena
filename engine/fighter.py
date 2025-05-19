@@ -68,17 +68,19 @@ class Fighter:
         print(f"{self.name} heals for {healing_amount} health!")
     
     def add_status_effect(self, effect):
+        print(f"DEBUG: Adding effect {effect.name} with duration type {type(effect.duration)}") # New debug line
         if effect.name in self.status_effects:
             self.status_effects[effect.name].duration += effect.duration
         else:
             self.status_effects[effect.name] = effect
-        print(f"{self.name} is affected by {effect.name} for {effect.duration} turns.")
+            # Let's access the stored object for printing
+            print(f"{self.name} is affected by {self.status_effects[effect.name].name} for {self.status_effects[effect.name].duration} turns.")
 
     def apply_status_effects(self):
-        effects_to_remove = [] 
+        effects_to_remove = []
 
-    
         for effect in self.status_effects.values():
+            print(f"DEBUG: Type of {effect.name} duration is {type(effect.duration)}")
             if effect.effect_type == "heal":
                 self.heal(effect.value)
             elif effect.effect_type == "poison":
@@ -102,7 +104,9 @@ class Fighter:
     def use_item(self, item):
         print(f"Attempting to use {item.name}...")
         if item.is_useable and item.duration is not None:
-            new_effect = StatusEffect(item.name,item.effect_type, item.duration, item.effect_value)
+            print(f"DEBUG in use_item: Type of item.duration is {type(item.duration)}")
+            new_effect = StatusEffect(item.name,item.duration, item.effect_value, item.effect_type)
+            print(f"DEBUG: Type of new_effect.duration is {type(new_effect.duration)}")
             print(f"{self.name} uses {item.name}!")
             self.add_status_effect(new_effect)
             if item.is_consumable:
@@ -111,3 +115,14 @@ class Fighter:
         
         else:
             print(f"{item.name} cannot be used.")
+    
+    def manage_self(self):
+        health_percent = (self.health / self.max_health) * 100
+        if 30 < health_percent < 40:
+            print(f"{self.name}'s health is in the critical range!") # Debug message
+            if random.random() < 0.7:
+                for item in self.inventory.items:
+                    if item.effect_type == "heal" and item.is_useable:
+                        print(f"{self.name} is trying to use {item.name}!") # Debug message
+                        self.use_item(item)
+                        return # Added to stop after using one item

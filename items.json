@@ -6,7 +6,7 @@
     "effect_value": 10,
     "duration": 2,
     "is_consumable": true,
-    "is_usable": true,
+    "is_useable": true,
     "is_equipped": false,
     "equip_slot": null
   },
@@ -17,7 +17,7 @@
     "effect_value": 1,
     "duration": 1,
     "is_consumable": true,
-    "is_usable": true,
+    "is_useable": true,
     "is_equipped": false,
     "equip_slot": null
   },
@@ -28,7 +28,7 @@
     "effect_value": 4,
     "duration": 3,
     "is_consumable": false,
-    "is_usable": false,
+    "is_useable": false,
     "is_equipped": true,
     "equip_slot": "main_hand"
   }

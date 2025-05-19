@@ -17,13 +17,14 @@ class Battle:
                     fighter.apply_status_effects()
                     if fighter.has_status_effect("stun"):
                         continue
+                    fighter.manage_self()
                     if fighter.health > 0:
                         target = None
                         for opponent in self.team2:
                             if opponent.health > 0:
                                 target = opponent
                                 break
-                        
+
                         if target is not None:
                             fighter.attack(target)
                         
@@ -36,6 +37,7 @@ class Battle:
                     fighter.apply_status_effects()
                     if fighter.has_status_effect("stun"):
                         continue
+                    fighter.manage_self()
                     if fighter.health > 0:
                         target = None
                         for opponent in self.team1:
