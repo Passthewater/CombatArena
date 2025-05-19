@@ -57,7 +57,7 @@ class Fighter:
         self.inventory.list_items()
 
     def has_status_effect(self, effect_name):
-        for effect in self.status_effects:
+        for effect in self.status_effects.values():
             if effect.name == effect_name:
                 return True
         return False
